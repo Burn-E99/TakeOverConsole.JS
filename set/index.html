@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>TACO_TRACKER Enabler</title>
+		<link rel="stylesheet" type="text/css" href="../bootstrap.min.css">
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<h1>Innovators Debug Enabler</h1>
+					<p>Some issues are difficult to reproduce, or only happen on certain devices, so we created a simple debugger to allow us to debug devices remotely and immediately (no reload needed!).</p>
+					<p>This tool enables the custom-built TACO_TRACKER (TACO is a shortened name for TakeOverConsole), which is a very simple, small tool (1.68 KB non-minified!) that takes all the JavaScript console outputs from an enabled device and sends it to TACO's own log, so that developers at Innovators Robotics can attempt to identify the issue.  This tool does NOT collect any information outside of what the enabled website outputs, in other words it does NOT hunt down personal information to send back.</p>
+				</div>
+			</div>
+			<hr/>
+			<div class="row">
+				<div class="col-sm-12">
+					<h3>Enabling and disabling TACO_TRACKER</h3>
+					<p>To enable TACO_TRACKER, fill out the form below.  Enter your team number (enter 9999 if you are not on a team), and a unique identifying number for this device (if you were provided with a unique identifying number, use that), and click "Save".</p>
+					<p>To disable TACO_TRACKER, press the button below.  <b>Please disable the tracking after you have finished reproducing your issue.</b>  The logs will still be saved, but will not get polluted with extra information</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12 text-center">
+					<button class="btn btn-lg btn-warning" onclick="localStorage.setItem('TACO_TRACKER', 0);document.getElementById('setup').style.display = 'none';document.getElementById('done').style.display = 'none';document.getElementById('stop').style.display = 'block';document.getElementById('debug2').innerHTML = localStorage.getItem('TACO_TRACKER');">Stop Tracking This Device</button>
+				</div>
+			</div>
+			<hr/>
+			<div id="setup" class="row">
+				<div class="col-sm-12 text-center">
+					<h3>Set up TACO_TRACKER</h3>
+					Enter Your Team Number:
+					<br/>
+					<input id="taco" type="number" class="form-control" />
+					<br/>
+					<br/>
+					Enter Your Unique Identifying Number:
+					<br/>
+					<input id="tracker" type="number" class="form-control" />
+					<br/>
+					<br/>
+					<button class="btn btn-lg btn-success" onclick="localStorage.setItem('TACO_TRACKER', parseInt(document.getElementById('taco').value + '00' + document.getElementById('tracker').value));document.getElementById('setup').style.display = 'none';document.getElementById('done').style.display = 'block';document.getElementById('stop').style.display = 'none';document.getElementById('team').innerHTML = document.getElementById('taco').value;document.getElementById('uid').innerHTML = document.getElementById('tracker').value;document.getElementById('debug').innerHTML = parseInt(document.getElementById('taco').value + '00' + document.getElementById('tracker').value);">Start Tracking This Device</button>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+				</div>
+			</div>
+			<div id="done" class="row" style="display:none;">
+				<div class="col-sm-12 text-center">
+					<div class="col-sm-6 col-sm-offset-3">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title">Tracking has been enabled!</h3>
+							</div>
+							<div class="panel-body">
+								TACO_TRACKER is now tracking this device (no refreshed needed!).  We recommend keeping this tab open until you are done so that you can turn the tracking off, but you can close this if you want though.  Everything will still work fine.
+								<br/>
+								<br/>
+								Please double check that the following are correct:
+								<br/>
+								<br/>
+								Team Number:&nbsp;<span id="team"></span>
+								<br/>
+								Unique Identifying Number:&nbsp;<span id="uid"></span>
+								<br/>
+								<br/>
+								If these do not match what you entered (or you left them blank by accident!), please <a href="./">refresh this page, and try again</a>.
+								<br/>
+								<br/>
+								<small class="text-muted">DEBUG:&nbsp;<span id="debug"></span></small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="stop" class="row" style="display:none;">
+				<div class="col-sm-12 text-center">
+					<div class="col-sm-6 col-sm-offset-3">
+						<div class="panel panel-warning">
+							<div class="panel-heading">
+								<h3 class="panel-title">Tracking has been disabled!</h3>
+							</div>
+							<div class="panel-body">
+								TACO_TRACKER is no longer tracking this device (no refreshed needed!).  Go ahead and close this tab out.
+								<br/>
+								<br/>
+								If you need to restart tracking (or you clicked the stop button by accident!), please <a href="./">refresh this page, and try again</a>.
+								<br/>
+								<br/>
+								<small class="text-muted">DEBUG:&nbsp;<span id="debug2"></span></small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

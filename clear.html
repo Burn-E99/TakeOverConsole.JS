@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head></head>
+	<body>
+		<button onclick="clearLog()">clear full log</button>
+		<script>
+			function clearLog() {
+				var xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == XMLHttpRequest.DONE) {
+						document.getElementById('log').innerHTML = "";
+					}
+				};
+				xhr.open('POST', './dellog.php', true);
+				xhr.send(null);
+			}
+		</script>
+	</body>
+</html>

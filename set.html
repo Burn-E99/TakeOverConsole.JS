@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head></head>
+	<body>
+		<span id="allofit">
+			use this to set the tracker id for this device
+			<br/>
+			set to 0 to untrack
+			<br/>
+			<input id="tracker" type="number" />
+			<button onclick="localStorage.setItem('TACO_TRACKER', document.getElementById('tracker').value);document.getElementById('trackwhee').innerHTML = document.getElementById('tracker').value;document.getElementById('allofit').style.display = 'none';document.getElementById('noneofit').style.display = 'inline';">set</button>
+		</span>
+		<a href="./" id="noneofit" style="display:none;">
+			go away now, its set to <span id="trackwhee"></span>
+		</a>
+	</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			.log{
+				color:#000000;
+			}
+			.info{
+				color:#2A53CD;
+			}
+			.warn{
+				color:#F5BD00;
+			}
+			.error{
+				color:#EB3941;
+			}
+			.logLine{
+				background-color:#FFFFFF;
+			}
+			.infoLine{
+				background-color:#FFFFFF;
+			}
+			.warnLine{
+				background-color:#FFFBE6;
+			}
+			.errorLine{
+				background-color:#FFF0F0;
+			}
+			.debutton {
+				background:none!important;
+				border:none;
+				padding:0!important;
+				font:inherit;
+				color:#069;
+				text-decoration:underline;
+				cursor:pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<a href="../">go back</a>
+		<a id="link" href="set.html">set tracker id for this device?</a>
+		<br/>
+		<span>enter an id to track:</span>
+		<input id="trackme" type="number" />
+		<button onclick="updateLog()">update log</button>
+		<br/>
+		<br/>
+		<span id="infff" style="display:none;">
+			oldest at top, newest at <button class="debutton" onclick="window.scrollTo(0,document.body.scrollHeight);">botttom</button>
+			<br/>
+			columns: deviceid, console type, data
+		</span>
+		<br/>
+		<hr id="whyy" style="display:none;"/>
+		<div id="log" style="font-family:'Lucida Console';"></div>
+		<hr id="whyyy" style="display:none;"/>
+		<span id="inffff" style="display:none;">
+			go to <button class="debutton" onclick="window.scrollTo(0,0);">top</button>
+		</span>
+		
+		<script>
+			function updateLog() {
+				var trackingid = document.getElementById("trackme").value;
+				document.getElementById('link').style.display = 'none';
+				document.getElementById('infff').style.display = 'inline';
+				document.getElementById('whyy').style.display = 'block';
+				document.getElementById('whyyy').style.display = 'block';
+				document.getElementById('inffff').style.display = 'inline';
+				
+				var xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == XMLHttpRequest.DONE) {
+						document.getElementById('log').innerHTML = xhr.responseText;
+						if(trackingid) {
+							for(var i = 0; i < document.getElementsByClassName('tracker'+trackingid).length; i++) {
+								document.getElementsByClassName('tracker'+trackingid)[i].style.display = "block";
+							}
+						} else {
+							for(var i = 0; i < document.getElementById('log').children.length; i++) {
+								document.getElementById('log').children[i].style.display = "block";
+							}
+						}
+					}
+				};
+				xhr.open('GET', './getlog.php', true);
+				xhr.send(null);
+			}
+		</script>
+	</body>
+</html>
